@@ -1,8 +1,40 @@
-function greeter(person: string) {
+/* function greeter(person: string) {
   return `Hello, ${person}`;
 }
 
 let user = 'TypeScript';
 // let user = ['TypeScript']; // Argument of type 'string[]' is not assignable to parameter of type 'string'.
 
-document.body.innerHTML = greeter(user); // 删除 greeter 所有参数：Expected 0 arguments, but got 1.
+document.body.innerHTML = greeter(user); // 删除 greeter 所有参数：Expected 0 arguments, but got 1. */
+
+/* interface Person {
+  firstName: string;
+  lastName: string;
+}
+
+function greeter(person: Person) {
+  return `Hello, ${person.firstName} ${person.lastName}!`;
+}
+
+let user = { firstName: "TypeScript", lastName: "Language" };
+document.body.innerHTML = greeter(user); */
+
+class Student {
+  fullName: string;
+  constructor(public firstName, public middleInitial, public lastName) {
+    this.fullName = `${firstName} ${middleInitial} ${lastName}`;
+  }
+}
+
+interface Person {
+  firstName: string;
+  lastName: string;
+}
+
+function greeter(person: Person) {
+  return `Hello, ${person.firstName} ${person.lastName}!`;
+}
+
+let user = new Student('TypeScript', 'M.', 'Language');
+console.log(user);
+document.body.innerHTML = greeter(user);
