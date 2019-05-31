@@ -34,7 +34,7 @@ console.log(greeter.greet());
  */
 var Animal = /** @class */ (function () {
     function Animal() {
-        this.move = this.move.bind(this);
+        // this.move = this.move.bind(this);
     }
     Animal.prototype.move = function (distanceInMeters) {
         if (distanceInMeters === void 0) { distanceInMeters = 0; }
@@ -57,3 +57,140 @@ var dog = new Dog();
 console.log('dog:', dog);
 dog.bark();
 dog.move(100);
+/**
+ * 派生类包含了一个构造函数，它 必须调用 super()，它会执行基类的构造函数。
+ * 在构造函数里访问 this的属性之前，我们 一定要调用 super()。
+ */
+var Animals = /** @class */ (function () {
+    function Animals(theName) {
+        this.name = theName;
+    }
+    Animals.prototype.move = function (distanceInMeters) {
+        if (distanceInMeters === void 0) { distanceInMeters = 0; }
+        console.log(this.name + " moved " + distanceInMeters + "m.");
+    };
+    return Animals;
+}());
+var Snake = /** @class */ (function (_super) {
+    __extends(Snake, _super);
+    function Snake(name) {
+        return _super.call(this, name) || this;
+        // this.move = this.move.bind(this);
+    }
+    Snake.prototype.move = function (distanceInMeters) {
+        if (distanceInMeters === void 0) { distanceInMeters = 5; }
+        console.log('Slithering...');
+        _super.prototype.move.call(this, distanceInMeters);
+    };
+    return Snake;
+}(Animals));
+var Horse = /** @class */ (function (_super) {
+    __extends(Horse, _super);
+    function Horse(name) {
+        return _super.call(this, name) || this;
+        // this.move = this.move.bind(this);
+    }
+    Horse.prototype.move = function (distanceInMeters) {
+        if (distanceInMeters === void 0) { distanceInMeters = 45; }
+        console.log('Galloping...');
+        _super.prototype.move.call(this, distanceInMeters);
+    };
+    return Horse;
+}(Animals));
+var sam = new Snake('Sammy the Python');
+console.log('sam:', sam);
+sam.move();
+var tom = new Horse('Tommy the Palomino');
+console.log('tom:', tom);
+tom.move(1000);
+/**
+ * 在TypeScript里，成员都默认为 public。也可以明确的将一个成员标记成 public。
+ * 当成员被标记成 private时，它就不能在声明它的类的外部访问。
+ */
+var PrivateProps = /** @class */ (function () {
+    function PrivateProps() {
+        this.str = 'Hello, TypeScript!';
+        console.log('PrivateProps constructor:', this.str);
+    }
+    return PrivateProps;
+}());
+var privateProp = new PrivateProps();
+// console.log(privateProp.str); // Property 'str' is private and only accessible within class 'PrivateProps'.
+/**
+ * protected修饰符与 private修饰符的行为很相似，但有一点不同， protected成员在派生类中仍然可以访问。
+ * 构造函数也可以被标记成 protected。 这意味着这个类不能在包含它的类外被实例化，但是能被继承(super)。
+ */
+var Person = /** @class */ (function () {
+    function Person(name) {
+        this.name = name;
+    }
+    return Person;
+}());
+var Employee = /** @class */ (function (_super) {
+    __extends(Employee, _super);
+    function Employee(name, department) {
+        var _this = _super.call(this, name) || this;
+        _this.department = department;
+        return _this;
+        // this.getElevatorPitch = this.getElevatorPitch.bind(this);
+    }
+    Employee.prototype.getElevatorPitch = function () {
+        return "Hello, my name is " + this.name + " and I work in " + this.department + ".";
+    };
+    return Employee;
+}(Person));
+var howard = new Employee('Howard', 'Sales');
+console.log('howard:', howard);
+console.log(howard.getElevatorPitch());
+// console.log(howard.name); // Property 'name' is protected and only accessible within class 'Person' and its subclasses.
+// const fuck = new Person('Not Allowed!'); // Constructor of class 'Person' is protected and only accessible within the class declaration.
+/**
+ * readonly关键字将属性设置为只读的。 只读属性必须在声明时或构造函数里被初始化。
+ *
+ * 参数属性通过给构造函数参数前面添加一个访问限定符来声明。
+ * 使用 private限定一个参数属性会声明并初始化一个私有成员；
+ * 对于 public和 protected来说也是一样。
+ */
+var Octopus = /** @class */ (function () {
+    function Octopus(theName, paramsProps) {
+        this.paramsProps = paramsProps;
+        this.numberOfLegs = 8;
+        this.name = theName;
+    }
+    return Octopus;
+}());
+var dad = new Octopus('Man with the 8 strong legs', 'Hello, TypeScript!');
+console.log(dad.paramsProps);
+dad.paramsProps = 'Hello, TypeScript~';
+// dad.name = "Man with the 3-piece suit"; // Cannot assign to 'name' because it is a read-only property.
+console.log(dad.paramsProps);
+/**
+ * TypeScript支持通过getters/setters来截取对对象成员的访问。
+ * 只带有 get不带有 set的存取器自动被推断为 readonly。
+ */
+var auth = 'secret code';
+var Student = /** @class */ (function () {
+    function Student() {
+    }
+    Object.defineProperty(Student.prototype, "fullName", {
+        get: function () {
+            console.log('getter...');
+            return this._fullName;
+        },
+        set: function (newName) {
+            console.log('setter...');
+            if (auth && auth === 'secret code') {
+                this._fullName = newName;
+            }
+            else {
+                console.error('Error: Unauthorized update of student!');
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Student;
+}());
+var stu = new Student();
+stu.fullName = 'name:TypeScript';
+console.log(stu.fullName);

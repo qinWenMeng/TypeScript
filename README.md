@@ -35,3 +35,9 @@
 
       let list: Array<number> = [1, 2, 3];
 ---
+# Error
+- `Accessors are only available when targeting ECMAScript 5 and higher.`
+  ##### 原因：`tsc 默认 编译 ES3`
+  ##### 解决方案：`tsc命令查看options`
+      tsc -t ES5 <fileName>.ts
+-
