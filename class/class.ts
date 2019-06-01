@@ -16,6 +16,8 @@ let greeter = new Greeter('TypeScript');
 console.log('greeter:', greeter);
 console.log(greeter.greet());
 
+console.log('-----------------------------------');
+
 /**
  * 类从基类中继承了属性和方法。
  * 通过 extends关键字。
@@ -40,6 +42,8 @@ const dog = new Dog();
 console.log('dog:', dog);
 dog.bark();
 dog.move(100);
+
+console.log('-----------------------------------');
 
 /**
  * 派生类包含了一个构造函数，它 必须调用 super()，它会执行基类的构造函数。
@@ -84,6 +88,8 @@ let tom: Animal = new Horse('Tommy the Palomino');
 console.log('tom:', tom);
 tom.move(1000);
 
+console.log('-----------------------------------');
+
 /**
  * 在TypeScript里，成员都默认为 public。也可以明确的将一个成员标记成 public。
  * 当成员被标记成 private时，它就不能在声明它的类的外部访问。
@@ -97,6 +103,8 @@ class PrivateProps {
 
 const privateProp = new PrivateProps();
 // console.log(privateProp.str); // Property 'str' is private and only accessible within class 'PrivateProps'.
+
+console.log('-----------------------------------');
 
 /**
  * protected修饰符与 private修饰符的行为很相似，但有一点不同， protected成员在派生类中仍然可以访问。
@@ -127,6 +135,8 @@ console.log(howard.getElevatorPitch());
 // console.log(howard.name); // Property 'name' is protected and only accessible within class 'Person' and its subclasses.
 // const fuck = new Person('Not Allowed!'); // Constructor of class 'Person' is protected and only accessible within the class declaration.
 
+console.log('-----------------------------------');
+
 /**
  * readonly关键字将属性设置为只读的。 只读属性必须在声明时或构造函数里被初始化。
  * 
@@ -146,6 +156,8 @@ console.log(dad.paramsProps);
 dad.paramsProps = 'Hello, TypeScript~';
 // dad.name = "Man with the 3-piece suit"; // Cannot assign to 'name' because it is a read-only property.
 console.log(dad.paramsProps);
+
+console.log('-----------------------------------');
 
 /**
  * TypeScript支持通过getters/setters来截取对对象成员的访问。
@@ -171,6 +183,8 @@ let stu = new Student();
 stu.fullName = 'name:TypeScript';
 console.log(stu.fullName);
 
+console.log('-----------------------------------');
+
 /**
  * static 创建类的静态成员，这些属性存在于类本身上面而不是类的实例上。
  * 每个实例想要访问这些属性的时候，都要在 属性 前面加上类名。
@@ -186,6 +200,8 @@ class Grid {
 }
 let grid1 = new Grid(1);
 console.log(grid1.calculateDistanceFromOrigin({ x: 10, y: 10 }));
+
+console.log('-----------------------------------');
 
 /**
  * 抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。
@@ -221,3 +237,79 @@ people = new Employee();
 people.printName();
 people.printMeeting();
 // people.test(); //error: Property 'test' does not exist on type 'People'.
+
+console.log('-----------------------------------');
+
+/**
+ * 类定义会创建两个东西：类的实例类型和一个构造函数。(查看编译后的文件)
+ * 
+ *  var Maker 将被赋值为构造函数。
+ *  当我们调用 new 并执行了这个函数后，便会得到一个类的实例。 
+ *  这个构造函数也包含了类的所有静态属性。
+ *  换个角度说，我们可以认为类具有 实例部分与 静态部分这两个部分。
+    var Maker = (function () {
+      function Maker(message) {
+        this.greeting = message;
+    }
+    Maker.prototype.greet = function () {
+        return "Maker: Hello, " + this.greeting + "!";
+    };
+    return Maker;
+    }());
+ */
+class Maker {
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  greet() {
+    return `Maker: Hello, ${this.greeting}!`;
+  }
+}
+
+let maker: Maker; // Maker 类的实例的类型是 Maker 。
+maker = new Maker('TypeScript');
+console.log(maker.greet());
+
+console.log('-----------------------------------');
+
+class Producer {
+  static standardGreeting = 'static: Hello, TypeScript!';
+  greeting: string;
+  greet() {
+    if (this.greeting) {
+      return `Producer: Hello, ${this.greeting}!`;
+    } else {
+      return Producer.standardGreeting;
+    }
+  }
+}
+let producer1: Producer;
+producer1 = new Producer();
+console.log(producer1.greet());
+
+/**
+ * typeof Greeter，意思是取Greeter类的类型，而不是实例的类型。
+ * 更确切的说，"告诉我 Greeter标识符的类型"，也就是构造函数的类型。 这个类型包含了类的所有静态成员和构造函数。 
+ */
+let producerMaker: typeof Producer = Producer;
+producerMaker.standardGreeting = 'producerMaker: Hello, TypeScript!';
+let producer2: Producer = new producerMaker();
+console.log(producer2.greet());
+
+console.log('-----------------------------------');
+
+/**
+ * 因为类可以创建出类型，所以你能够在允许使用接口的地方使用类。
+ */
+
+class Point {
+  x: number;
+  y: number;
+}
+
+class Point3D extends Point {
+  z: number;
+}
+
+let point3D: Point3D = { x: 1, y: 2, z: 3 };

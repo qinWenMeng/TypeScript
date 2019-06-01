@@ -27,6 +27,7 @@ var Greeter = /** @class */ (function () {
 var greeter = new Greeter('TypeScript');
 console.log('greeter:', greeter);
 console.log(greeter.greet());
+console.log('-----------------------------------');
 /**
  * 类从基类中继承了属性和方法。
  * 通过 extends关键字。
@@ -57,6 +58,7 @@ var dog = new Dog();
 console.log('dog:', dog);
 dog.bark();
 dog.move(100);
+console.log('-----------------------------------');
 /**
  * 派生类包含了一个构造函数，它 必须调用 super()，它会执行基类的构造函数。
  * 在构造函数里访问 this的属性之前，我们 一定要调用 super()。
@@ -103,6 +105,7 @@ sam.move();
 var tom = new Horse('Tommy the Palomino');
 console.log('tom:', tom);
 tom.move(1000);
+console.log('-----------------------------------');
 /**
  * 在TypeScript里，成员都默认为 public。也可以明确的将一个成员标记成 public。
  * 当成员被标记成 private时，它就不能在声明它的类的外部访问。
@@ -116,6 +119,7 @@ var PrivateProps = /** @class */ (function () {
 }());
 var privateProp = new PrivateProps();
 // console.log(privateProp.str); // Property 'str' is private and only accessible within class 'PrivateProps'.
+console.log('-----------------------------------');
 /**
  * protected修饰符与 private修饰符的行为很相似，但有一点不同， protected成员在派生类中仍然可以访问。
  * 构造函数也可以被标记成 protected。 这意味着这个类不能在包含它的类外被实例化，但是能被继承(super)。
@@ -144,6 +148,7 @@ console.log('howard:', howard);
 console.log(howard.getElevatorPitch());
 // console.log(howard.name); // Property 'name' is protected and only accessible within class 'Person' and its subclasses.
 // const fuck = new Person('Not Allowed!'); // Constructor of class 'Person' is protected and only accessible within the class declaration.
+console.log('-----------------------------------');
 /**
  * readonly关键字将属性设置为只读的。 只读属性必须在声明时或构造函数里被初始化。
  *
@@ -164,6 +169,7 @@ console.log(dad.paramsProps);
 dad.paramsProps = 'Hello, TypeScript~';
 // dad.name = "Man with the 3-piece suit"; // Cannot assign to 'name' because it is a read-only property.
 console.log(dad.paramsProps);
+console.log('-----------------------------------');
 /**
  * TypeScript支持通过getters/setters来截取对对象成员的访问。
  * 只带有 get不带有 set的存取器自动被推断为 readonly。
@@ -194,6 +200,7 @@ var Student = /** @class */ (function () {
 var stu = new Student();
 stu.fullName = 'name:TypeScript';
 console.log(stu.fullName);
+console.log('-----------------------------------');
 /**
  * static 创建类的静态成员，这些属性存在于类本身上面而不是类的实例上。
  * 每个实例想要访问这些属性的时候，都要在 属性 前面加上类名。
@@ -212,6 +219,7 @@ var Grid = /** @class */ (function () {
 }());
 var grid1 = new Grid(1);
 console.log(grid1.calculateDistanceFromOrigin({ x: 10, y: 10 }));
+console.log('-----------------------------------');
 /**
  * 抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。
  * abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。
@@ -248,3 +256,76 @@ people = new Employee();
 people.printName();
 people.printMeeting();
 // people.test(); //error: Property 'test' does not exist on type 'People'.
+console.log('-----------------------------------');
+/**
+ * 类定义会创建两个东西：类的实例类型和一个构造函数。(查看编译后的文件)
+ *
+ *  var Maker 将被赋值为构造函数。
+ *  当我们调用 new 并执行了这个函数后，便会得到一个类的实例。
+ *  这个构造函数也包含了类的所有静态属性。
+ *  换个角度说，我们可以认为类具有 实例部分与 静态部分这两个部分。
+    var Maker = (function () {
+      function Maker(message) {
+        this.greeting = message;
+    }
+    Maker.prototype.greet = function () {
+        return "Maker: Hello, " + this.greeting + "!";
+    };
+    return Maker;
+    }());
+ */
+var Maker = /** @class */ (function () {
+    function Maker(message) {
+        this.greeting = message;
+    }
+    Maker.prototype.greet = function () {
+        return "Maker: Hello, " + this.greeting + "!";
+    };
+    return Maker;
+}());
+var maker; // Maker 类的实例的类型是 Maker 。
+maker = new Maker('TypeScript');
+console.log(maker.greet());
+console.log('-----------------------------------');
+var Producer = /** @class */ (function () {
+    function Producer() {
+    }
+    Producer.prototype.greet = function () {
+        if (this.greeting) {
+            return "Producer: Hello, " + this.greeting + "!";
+        }
+        else {
+            return Producer.standardGreeting;
+        }
+    };
+    Producer.standardGreeting = 'static: Hello, TypeScript!';
+    return Producer;
+}());
+var producer1;
+producer1 = new Producer();
+console.log(producer1.greet());
+/**
+ * typeof Greeter，意思是取Greeter类的类型，而不是实例的类型。
+ * 更确切的说，"告诉我 Greeter标识符的类型"，也就是构造函数的类型。 这个类型包含了类的所有静态成员和构造函数。
+ */
+var producerMaker = Producer;
+producerMaker.standardGreeting = 'producerMaker: Hello, TypeScript!';
+var producer2 = new producerMaker();
+console.log(producer2.greet());
+console.log('-----------------------------------');
+/**
+ * 因为类可以创建出类型，所以你能够在允许使用接口的地方使用类。
+ */
+var Point = /** @class */ (function () {
+    function Point() {
+    }
+    return Point;
+}());
+var Point3D = /** @class */ (function (_super) {
+    __extends(Point3D, _super);
+    function Point3D() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return Point3D;
+}(Point));
+var point3D = { x: 1, y: 2, z: 3 };
