@@ -74,10 +74,11 @@ var restParamsFunc = restParams;
 restParams('0', '1', '2', '3');
 var deck = {
     suits: ['hearts', 'spades', "clubs", "diamonds"],
-    // 提供一个显式的 this参数。 this参数是个假的参数，它出现在参数列表的最前面
-    createCardPicker: function () {
+    // 提供一个显式的 this参数。 this参数是个假的参数，它出现在参数列表的最前面.
+    createCardPicker: function (str) {
         var _this = this;
         console.log('createCardPicker:', this);
+        console.log(str);
         return function () {
             console.log('arrow function:', _this);
             var pickedCard = Math.floor(Math.random() * 52);
@@ -86,6 +87,6 @@ var deck = {
         };
     }
 };
-var cardPicker = deck.createCardPicker();
+var cardPicker = deck.createCardPicker('Hello');
 var pickedCard = cardPicker();
 console.log("card: " + pickedCard.card + " of " + pickedCard.suit);

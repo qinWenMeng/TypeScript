@@ -102,13 +102,14 @@ interface Card {
 }
 interface Deck {
   suits: string[];
-  createCardPicker(this: Deck): () => Card;
+  createCardPicker(this: Deck, param: string): () => Card;
 }
 let deck: Deck = {
   suits: ['hearts', 'spades', "clubs", "diamonds"],
-  // 提供一个显式的 this参数。 this参数是个假的参数，它出现在参数列表的最前面
-  createCardPicker: function (this: Deck) {
+  // 提供一个显式的 this参数。 this参数是个假的参数，它出现在参数列表的最前面.
+  createCardPicker: function (this: Deck, str: string) {
     console.log('createCardPicker:', this);
+    console.log(str);
     return () => {
       console.log('arrow function:', this);
       let pickedCard = Math.floor(Math.random() * 52);
@@ -119,6 +120,6 @@ let deck: Deck = {
   }
 };
 
-let cardPicker = deck.createCardPicker();
+let cardPicker = deck.createCardPicker('Hello');
 let pickedCard = cardPicker();
 console.log("card: " + pickedCard.card + " of " + pickedCard.suit);
