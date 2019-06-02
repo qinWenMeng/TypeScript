@@ -74,3 +74,51 @@ function restParams(must: string, ...restParams: string[]): void {
 }
 const restParamsFunc: (param: string, ...rest: string[]) => void = restParams;
 restParams('0', '1', '2', '3');
+
+/**
+ * ECMAScript 6 箭头函数能保存函数创建时的 this值，而不是调用时的值.
+ */
+/* let deck = {
+  suits: ['hearts', 'spades', "clubs", "diamonds"],
+  createCardPicker: function () {
+    console.log('createCardPicker:', this);
+    return () => {
+      console.log('arrow function:', this);
+      let pickedCard = Math.floor(Math.random() * 52);
+      let pickedSuit = Math.floor(pickedCard / 13);
+
+      return { suit: this.suits[pickedSuit], card: pickedCard % 13 }; // this的类型为any。
+    };
+  }
+};
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+console.log("card: " + pickedCard.card + " of " + pickedCard.suit); */
+
+interface Card {
+  suit: string;
+  card: number;
+}
+interface Deck {
+  suits: string[];
+  createCardPicker(this: Deck): () => Card;
+}
+let deck: Deck = {
+  suits: ['hearts', 'spades', "clubs", "diamonds"],
+  // 提供一个显式的 this参数。 this参数是个假的参数，它出现在参数列表的最前面
+  createCardPicker: function (this: Deck) {
+    console.log('createCardPicker:', this);
+    return () => {
+      console.log('arrow function:', this);
+      let pickedCard = Math.floor(Math.random() * 52);
+      let pickedSuit = Math.floor(pickedCard / 13);
+
+      return { suit: this.suits[pickedSuit], card: pickedCard % 13 }; // this是Deck类型的
+    };
+  }
+};
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+console.log("card: " + pickedCard.card + " of " + pickedCard.suit);
