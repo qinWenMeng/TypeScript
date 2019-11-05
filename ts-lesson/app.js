@@ -1,5 +1,5 @@
 "use strict";
-// Type：类型
+// Basic Types:
 // number
 var num = 123;
 // boolean
