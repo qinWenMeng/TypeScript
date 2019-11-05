@@ -1,3 +1,4 @@
+// Type：类型
 // number
 let num: number = 123;
 // boolean
