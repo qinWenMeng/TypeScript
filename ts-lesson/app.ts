@@ -2,7 +2,7 @@
 let num: number = 123;
 // boolean
 let flag: boolean = true;
-// str
+// string
 let str: string = 'Hello, TypeScript!';
 // elemType[], Array<elemType>
 let arr: number[] = [1, 2, 3];
