@@ -11,3 +11,12 @@ var arr = [1, 2, 3];
 var list = ['one', 'two', 'three'];
 // Tuple
 var tuple = [123, 'Hello, TypeScript!'];
+// enum
+var Colors;
+(function (Colors) {
+    Colors[Colors["Red"] = 0] = "Red";
+    Colors[Colors["Green"] = 1] = "Green";
+    Colors[Colors["Blue"] = 2] = "Blue";
+})(Colors || (Colors = {}));
+var color = Colors.Red;
+console.log(color);
