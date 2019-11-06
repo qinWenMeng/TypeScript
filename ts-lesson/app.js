@@ -20,3 +20,10 @@ var Colors;
 })(Colors || (Colors = {}));
 var color = Colors.Red;
 console.log(color);
+// Functions
+var sum = function (x, y) { return x + y; };
+console.log(sum(1, 2));
+function add(x, y) {
+    return x + y;
+}
+console.log(add(2, 3));
