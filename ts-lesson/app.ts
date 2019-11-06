@@ -10,3 +10,12 @@ let arr: number[] = [1, 2, 3];
 let list: Array<string> = ['one', 'two', 'three'];
 // Tuple
 let tuple: [number, string] = [123, 'Hello, TypeScript!'];
+// enum
+enum Colors {
+  Red,
+  Green,
+  Blue
+}
+
+let color: Colors = Colors.Red;
+console.log(color);
