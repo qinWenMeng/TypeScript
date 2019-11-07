@@ -32,3 +32,16 @@ function add(x: number, y: number):number {
   return x + y;
 }
 console.log(add(2, 3));
+
+// Classes
+class Greeter {
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  greet() {
+    return "Hello, " + this.greeting;
+  }
+}
+let greeter = new Greeter("TypeScript!");
+console.log(greeter.greet());
