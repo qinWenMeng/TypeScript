@@ -1,5 +1,18 @@
 "use strict";
 // Basic Types:
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 // number
 var num = 123;
 // boolean
@@ -30,12 +43,30 @@ console.log(add(2, 3));
 // Classes
 var Greeter = /** @class */ (function () {
     function Greeter(message) {
+        // only accessible within class 'Greeter'
+        this.one = 'one';
+        // only accessible within class 'Greeter' and its subclasses.
+        this.two = true;
         this.greeting = message;
     }
-    Greeter.prototype.greet = function () {
-        return "Hello, " + this.greeting;
+    Greeter.prototype.greet = function (msg) {
+        console.log(msg + "Hello, " + this.greeting + ", " + this.one + ":" + this.two);
     };
     return Greeter;
 }());
+var Someone = /** @class */ (function (_super) {
+    __extends(Someone, _super);
+    function Someone() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Someone.prototype.print = function () {
+        this.greet("person: ");
+        this.two = false;
+        console.log("person: Hello, " + this.greeting + ", " + this.two);
+    };
+    return Someone;
+}(Greeter));
 var greeter = new Greeter("TypeScript!");
-console.log(greeter.greet());
+greeter.greet("greeter: ");
+var person = new Someone("someone!");
+person.print();

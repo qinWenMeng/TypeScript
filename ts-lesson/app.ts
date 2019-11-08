@@ -36,12 +36,25 @@ console.log(add(2, 3));
 // Classes
 class Greeter {
   greeting: string;
+  // only accessible within class 'Greeter'
+  private one: string =  'one';
+  // only accessible within class 'Greeter' and its subclasses.
+  protected two: boolean = true;
   constructor(message: string) {
     this.greeting = message;
   }
-  greet() {
-    return "Hello, " + this.greeting;
+  greet(msg?: string):void {
+    console.log(`${msg}Hello, ${this.greeting}, ${this.one}:${this.two}`);
+  }
+}
+class Someone extends Greeter {
+  print():void {
+    this.greet("person: ");
+    this.two = false;
+    console.log(`person: Hello, ${this.greeting}, ${this.two}`);
   }
 }
 let greeter = new Greeter("TypeScript!");
-console.log(greeter.greet());
+greeter.greet("greeter: ");
+let person = new Someone("someone!");
+person.print();
