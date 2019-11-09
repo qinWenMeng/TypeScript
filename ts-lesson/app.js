@@ -103,11 +103,23 @@ var Grid = /** @class */ (function () {
         this.prop = prop;
     }
     Grid.prototype.print = function () {
-        console.log(Grid.origin);
+        console.log("Grid:", Grid.origin);
     };
     Grid.origin = { x: 100, y: 100 };
     return Grid;
 }());
+var Box = /** @class */ (function (_super) {
+    __extends(Box, _super);
+    function Box(name) {
+        var _this = _super.call(this, name) || this;
+        _this.type = 'flex';
+        console.log("Box:", Box.origin);
+        return _this;
+    }
+    return Box;
+}(Grid));
 var demo = new Grid("Hello, TypeScript~");
 console.log(demo);
 demo.print();
+var box = new Box('box');
+console.log(box);

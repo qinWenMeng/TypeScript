@@ -89,9 +89,18 @@ class Grid {
   static origin = { x: 100, y: 100 };
   constructor(public prop: string) {}
   print() {
-    console.log(Grid.origin);
+    console.log("Grid:", Grid.origin);
   }
+}
+class Box extends Grid {
+  constructor(name: string) {
+    super(name);
+    console.log("Box:", Box.origin);
+  }
+  type: string = 'flex';
 }
 let demo = new Grid("Hello, TypeScript~");
 console.log(demo);
 demo.print();
+let box = new Box('box');
+console.log(box);
