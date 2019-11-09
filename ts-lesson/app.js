@@ -98,3 +98,16 @@ var employee = new Employee("TypeScript~");
 console.log(employee.name);
 employee.name = "TypeScript!";
 console.log(employee.name);
+var Grid = /** @class */ (function () {
+    function Grid(prop) {
+        this.prop = prop;
+    }
+    Grid.prototype.print = function () {
+        console.log(Grid.origin);
+    };
+    Grid.origin = { x: 100, y: 100 };
+    return Grid;
+}());
+var demo = new Grid("Hello, TypeScript~");
+console.log(demo);
+demo.print();

@@ -84,3 +84,14 @@ let employee = new Employee("TypeScript~");
 console.log(employee.name);
 employee.name = "TypeScript!";
 console.log(employee.name);
+
+class Grid {
+  static origin = { x: 100, y: 100 };
+  constructor(public prop: string) {}
+  print() {
+    console.log(Grid.origin);
+  }
+}
+let demo = new Grid("Hello, TypeScript~");
+console.log(demo);
+demo.print();
