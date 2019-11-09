@@ -47,6 +47,7 @@ var Greeter = /** @class */ (function () {
         this.one = 'one';
         // only accessible within class 'Greeter' and its subclasses.
         this.two = true;
+        this.three = 'three';
         this.greeting = message;
     }
     Greeter.prototype.greet = function (msg) {
@@ -68,5 +69,29 @@ var Someone = /** @class */ (function (_super) {
 }(Greeter));
 var greeter = new Greeter("TypeScript!");
 greeter.greet("greeter: ");
+console.log(greeter.three);
 var person = new Someone("someone!");
 person.print();
+var Employee = /** @class */ (function () {
+    function Employee(name) {
+        this._name = "";
+        this._name = name;
+    }
+    Object.defineProperty(Employee.prototype, "name", {
+        get: function () {
+            console.log('get...');
+            return this._name;
+        },
+        set: function (newName) {
+            console.log('set...');
+            this._name = newName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Employee;
+}());
+var employee = new Employee("TypeScript~");
+console.log(employee.name);
+employee.name = "TypeScript!";
+console.log(employee.name);

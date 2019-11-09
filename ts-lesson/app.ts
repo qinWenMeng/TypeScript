@@ -40,6 +40,7 @@ class Greeter {
   private one: string =  'one';
   // only accessible within class 'Greeter' and its subclasses.
   protected two: boolean = true;
+  readonly three:string = 'three';
   constructor(message: string) {
     this.greeting = message;
   }
@@ -56,5 +57,26 @@ class Someone extends Greeter {
 }
 let greeter = new Greeter("TypeScript!");
 greeter.greet("greeter: ");
+console.log(greeter.three);
 let person = new Someone("someone!");
 person.print();
+
+class Employee {
+  private _name: string = "";
+  constructor(name: string) {
+    this._name = name;
+  }
+  get name():string {
+    console.log('get...');
+    return this._name;
+  }
+  set name(newName: string) {
+    console.log('set...');
+    this._name = newName;
+  }
+}
+
+let employee = new Employee("TypeScript~");
+console.log(employee.name);
+employee.name = "TypeScript!";
+console.log(employee.name);
