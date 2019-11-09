@@ -49,16 +49,20 @@ class Greeter {
   }
 }
 class Someone extends Greeter {
+  constructor(greeting: string, public gender: string) {
+    super(greeting);
+  }
   print():void {
     this.greet("person: ");
     this.two = false;
-    console.log(`person: Hello, ${this.greeting}, ${this.two}`);
+    console.log(`person: Hello, ${this.greeting}, ${this.two}, gender:${this.gender}`);
   }
 }
 let greeter = new Greeter("TypeScript!");
 greeter.greet("greeter: ");
 console.log(greeter.three);
-let person = new Someone("someone!");
+let person = new Someone("someone!", 'male');
+console.log(person);
 person.print();
 
 class Employee {

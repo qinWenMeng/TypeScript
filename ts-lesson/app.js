@@ -57,20 +57,23 @@ var Greeter = /** @class */ (function () {
 }());
 var Someone = /** @class */ (function (_super) {
     __extends(Someone, _super);
-    function Someone() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Someone(greeting, gender) {
+        var _this = _super.call(this, greeting) || this;
+        _this.gender = gender;
+        return _this;
     }
     Someone.prototype.print = function () {
         this.greet("person: ");
         this.two = false;
-        console.log("person: Hello, " + this.greeting + ", " + this.two);
+        console.log("person: Hello, " + this.greeting + ", " + this.two + ", gender:" + this.gender);
     };
     return Someone;
 }(Greeter));
 var greeter = new Greeter("TypeScript!");
 greeter.greet("greeter: ");
 console.log(greeter.three);
-var person = new Someone("someone!");
+var person = new Someone("someone!", 'male');
+console.log(person);
 person.print();
 var Employee = /** @class */ (function () {
     function Employee(name) {
