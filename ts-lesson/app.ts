@@ -104,3 +104,19 @@ console.log(demo);
 demo.print();
 let box = new Box('box');
 console.log(box);
+
+
+namespace MyMath {
+  export const PI = 3.14;
+  export function sum(a: number, b: number) {
+    return a + b;
+  }
+  export function calc(val: number) {
+    return 2 * (PI * 100) * val / 100;
+  }
+}
+const PI = 3.1415926;
+console.log(PI);
+console.log(MyMath.PI);
+console.log(MyMath.sum(1, 1));
+console.log(MyMath.calc(1));

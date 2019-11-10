@@ -123,3 +123,20 @@ console.log(demo);
 demo.print();
 var box = new Box('box');
 console.log(box);
+var MyMath;
+(function (MyMath) {
+    MyMath.PI = 3.14;
+    function sum(a, b) {
+        return a + b;
+    }
+    MyMath.sum = sum;
+    function calc(val) {
+        return 2 * (MyMath.PI * 100) * val / 100;
+    }
+    MyMath.calc = calc;
+})(MyMath || (MyMath = {}));
+var PI = 3.1415926;
+console.log(PI);
+console.log(MyMath.PI);
+console.log(MyMath.sum(1, 1));
+console.log(MyMath.calc(1));
