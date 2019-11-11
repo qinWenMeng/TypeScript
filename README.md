@@ -14,8 +14,19 @@
 ```
 tsc --init
 ```
+
 ```
 创建tsconfig.json之后再编译ts文件, 只需要运行 tsc 命令就可以
+```
+
+> 命名空间分离到多文件，文件关联、编译命令
+
+```
+/// <reference path="file.ts" />
+```
+
+```
+tsc --outFile [output].js [target].ts
 ```
 
 ---
