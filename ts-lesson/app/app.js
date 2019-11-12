@@ -165,3 +165,9 @@ var Developer = /** @class */ (function () {
 }());
 var dev = new Developer(1);
 console.log(dev);
+var stu = {
+    student_name: "小明",
+    school_name: "幼儿园",
+    school_address: "火星"
+};
+console.log(stu);

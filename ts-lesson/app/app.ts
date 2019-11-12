@@ -160,3 +160,17 @@ class Developer implements Person, People {
 }
 let dev = new Developer(1);
 console.log(dev);
+
+interface School {
+  school_name: string;
+  school_address: string;
+}
+interface Student extends School {
+  student_name: string;
+}
+const stu: Student = {
+  student_name: "小明",
+  school_name: "幼儿园",
+  school_address: "火星"
+};
+console.log(stu);
