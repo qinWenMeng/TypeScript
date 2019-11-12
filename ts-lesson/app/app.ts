@@ -120,3 +120,43 @@ console.log(PI);
 console.log(MyMath.PI);
 console.log(MyMath.sum(1, 1));
 console.log(MyMath.calc(1));
+
+
+interface Person {
+  name: string; // 必传
+  age?: number; // 可选
+  readonly gender: string; // 只读
+  // [propName: string]: any; // 额外
+  greet(message: string): void;
+}
+
+interface People {
+  id: number;
+  job: string;
+}
+
+let friend: Person = {
+  name: "TypeScript",
+  gender: "TS",
+  greet(message: string):void {
+    console.log(`${message}, ${this.name}~`);
+  }
+};
+console.log(friend);
+friend.greet("Hello");
+
+class Developer implements Person, People {
+  id: number = 0;
+  name: string = "ape";
+  gender: string =  "animal";
+  age: number = 30;
+  job: string = "IT";
+  greet(message: string): void {
+    console.log(message);
+  }
+  constructor(id?: number) {
+    id && (this.id = id);
+  }
+}
+let dev = new Developer(1);
+console.log(dev);

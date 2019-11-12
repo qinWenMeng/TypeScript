@@ -140,3 +140,28 @@ console.log(PI);
 console.log(MyMath.PI);
 console.log(MyMath.sum(1, 1));
 console.log(MyMath.calc(1));
+var friend = {
+    name: "TypeScript",
+    gender: "TS",
+    greet: function (message) {
+        console.log(message + ", " + this.name + "~");
+    }
+};
+console.log(friend);
+friend.greet("Hello");
+var Developer = /** @class */ (function () {
+    function Developer(id) {
+        this.id = 0;
+        this.name = "ape";
+        this.gender = "animal";
+        this.age = 30;
+        this.job = "IT";
+        id && (this.id = id);
+    }
+    Developer.prototype.greet = function (message) {
+        console.log(message);
+    };
+    return Developer;
+}());
+var dev = new Developer(1);
+console.log(dev);
