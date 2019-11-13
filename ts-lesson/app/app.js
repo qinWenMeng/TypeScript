@@ -13,18 +13,18 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-// number
+/* number */
 var num = 123;
-// boolean
+/* 布尔boolean */
 var flag = true;
-// string
+/* 字符串string */
 var str = 'Hello, TypeScript!';
-// elemType[], Array<elemType>
+/* 数组elemType[], Array<elemType> */
 var arr = [1, 2, 3];
 var list = ['one', 'two', 'three'];
-// Tuple
+/* 元组Tuple */
 var tuple = [123, 'Hello, TypeScript!'];
-// enum
+/* 枚举enum */
 var Colors;
 (function (Colors) {
     Colors[Colors["Red"] = 0] = "Red";
@@ -33,14 +33,14 @@ var Colors;
 })(Colors || (Colors = {}));
 var color = Colors.Red;
 console.log(color);
-// Functions
+/* 函数Functions */
 var sum = function (x, y) { return x + y; };
 console.log(sum(1, 2));
 function add(x, y) {
     return x + y;
 }
 console.log(add(2, 3));
-// Classes
+/* 类Classes */
 var Greeter = /** @class */ (function () {
     function Greeter(message) {
         // only accessible within class 'Greeter'
@@ -63,21 +63,21 @@ var Someone = /** @class */ (function (_super) {
         return _this;
     }
     Someone.prototype.print = function () {
-        this.greet("person: ");
+        this.greet('person: ');
         this.two = false;
         console.log("person: Hello, " + this.greeting + ", " + this.two + ", gender:" + this.gender);
     };
     return Someone;
 }(Greeter));
-var greeter = new Greeter("TypeScript!");
-greeter.greet("greeter: ");
+var greeter = new Greeter('TypeScript!');
+greeter.greet('greeter: ');
 console.log(greeter.three);
-var person = new Someone("someone!", 'male');
+var person = new Someone('someone!', 'male');
 console.log(person);
 person.print();
 var Employee = /** @class */ (function () {
     function Employee(name) {
-        this._name = "";
+        this._name = '';
         this._name = name;
     }
     Object.defineProperty(Employee.prototype, "name", {
@@ -94,16 +94,16 @@ var Employee = /** @class */ (function () {
     });
     return Employee;
 }());
-var employee = new Employee("TypeScript~");
+var employee = new Employee('TypeScript~');
 console.log(employee.name);
-employee.name = "TypeScript!";
+employee.name = 'TypeScript!';
 console.log(employee.name);
 var Grid = /** @class */ (function () {
     function Grid(prop) {
         this.prop = prop;
     }
     Grid.prototype.print = function () {
-        console.log("Grid:", Grid.origin);
+        console.log('Grid:', Grid.origin);
     };
     Grid.origin = { x: 100, y: 100 };
     return Grid;
@@ -113,16 +113,17 @@ var Box = /** @class */ (function (_super) {
     function Box(name) {
         var _this = _super.call(this, name) || this;
         _this.type = 'flex';
-        console.log("Box:", Box.origin);
+        console.log('Box:', Box.origin);
         return _this;
     }
     return Box;
 }(Grid));
-var demo = new Grid("Hello, TypeScript~");
+var demo = new Grid('Hello, TypeScript~');
 console.log(demo);
 demo.print();
 var box = new Box('box');
 console.log(box);
+/* 命名空间namespace */
 var MyMath;
 (function (MyMath) {
     MyMath.PI = 3.14;
@@ -141,21 +142,21 @@ console.log(MyMath.PI);
 console.log(MyMath.sum(1, 1));
 console.log(MyMath.calc(1));
 var friend = {
-    name: "TypeScript",
-    gender: "TS",
+    name: 'TypeScript',
+    gender: 'TS',
     greet: function (message) {
         console.log(message + ", " + this.name + "~");
     }
 };
 console.log(friend);
-friend.greet("Hello");
+friend.greet('Hello');
 var Developer = /** @class */ (function () {
     function Developer(id) {
         this.id = 0;
-        this.name = "ape";
-        this.gender = "animal";
+        this.name = 'ape';
+        this.gender = 'animal';
         this.age = 30;
-        this.job = "IT";
+        this.job = 'IT';
         id && (this.id = id);
     }
     Developer.prototype.greet = function (message) {
@@ -166,8 +167,40 @@ var Developer = /** @class */ (function () {
 var dev = new Developer(1);
 console.log(dev);
 var stu = {
-    student_name: "小明",
-    school_name: "幼儿园",
-    school_address: "火星"
+    student_name: '小明',
+    school_name: '幼儿园',
+    school_address: '火星'
 };
 console.log(stu);
+function myFunc(x, y) {
+    console.log(x % y === 0);
+    return x % y === 0;
+}
+var func = myFunc;
+func(20, 4);
+/* 泛型 */
+function identity(arg) {
+    console.log(arg);
+    return arg;
+}
+identity('Hello, TypeScript!');
+identity('Hello, TypeScript~');
+function identityFunc(arg) {
+    console.log(arg);
+    return arg;
+}
+var iFunc = identityFunc;
+iFunc('Hello, ts!');
+function genericIdentityFunc(arg) {
+    console.log(arg);
+    return arg;
+}
+var gFunc = genericIdentityFunc;
+gFunc('Hello, ts~');
+gFunc(1024);
+function getLength(arg) {
+    console.log(arg.length);
+    return arg;
+}
+getLength([1, 2, 3]);
+getLength({ key: '123', value: '456', length: 2 });
